@@ -97,7 +97,7 @@ function GetIdentifiers(src)
         table.insert(identifiers, v)
     end
     
-    return license
+    return identifiers
 end
 
 function CheckIsAdmin(src)
