@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdn.staticaly.com/gh/hung1001/font-awesome-pro-v6/18657a9/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="style.css">
+    <!-- Codemirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/ayu-dark.min.css" integrity="sha512-mV3RUXi1gt22jDb4UyRBFhZVFgAIiOfRE6ul+2l1Hcj6glyg6x4xlnjPH+neGm/t6XrFmsMRu4++McQu0asjqg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="codemirror.css">
+    <!-- Codemirror Js-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/codemirror.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/xml/xml.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/css/css.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/javascript/javascript.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.4/mode/htmlmixed/htmlmixed.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/lua/lua.min.js" integrity="sha512-MXR/wu8WxkFikybMYGuaR9O0SgRrcSReZUNuherC0XZ7SJN/db3W+qQCh+4rAiBBeNk/yd/NdnQd/s2nO4q4fA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
+    <script src="app.js"></script>
+    <title>Roda ResourceManager</title>
+</head>
+
+<body>
+    <div class="Contenedor" style="display: none;">
+        <div class="Header">
+            <div class="DiscordAvatar">
+
+            </div>
+            <div class="DiscordName">
+                <h1>Roderic Perro</h1>
+            </div>
+            <div class="SearchBar">
+                <input id="searchResources" type="text" placeholder="Search...">
+            </div>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="AppendForResources">
+            <!-- <div class="Resource">
+                <h1 class="CenterText">Roda_Scoreboard</h1>
+                <div class="Botones">
+                    <input type="button">
+                    <input type="button">
+                    <input type="button">
+                    <input type="button">
+                </div>
+            </div>
+             -->
+        </div>
+    </div>
+    <div class="MenuResources" style="display: none;">
+        <h1 id="putaInvisible"></h1>
+        <div class="AppendResourcesRoute">
+            <!-- <div class="Ruta">
+                <h1>html/index.html</h1>
+            </div> -->
+        </div>
+        <div class="edit">Edit</div>
+        <div class="cancel">Close</div>
+    </div>
+    <div class="EditorCont" style="display: none;">
+        <div id="editor2">
+            <textarea id="editor"> </textarea>
+        </div>
+        <div class="SaveAndClose">
+            <input type="button" id="saveruta" value="Save">
+            <input type="button" id="cancelruta" value="Close">
+        </div>
+        
+    </div>
+
+</body>
