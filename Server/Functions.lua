@@ -3,6 +3,7 @@ function GetAllResources(src)
     if CheckIsAdmin(src) then 
         local resources = {}
         local max = GetNumResources() - 1
+
         for i = 0, max do
             local resName = GetResourceByFindIndex(i)
             local resDesc = GetResourceMetadata(resName, 'description')
@@ -18,12 +19,13 @@ function GetAllResources(src)
                 version = GetResourceMetadata(resName, 'version'),
                 description = resDesc
             }
+
             table.insert(resources, currentRes)
         end
-        Wait(200)
+
         return resources
     else
-        HackerDetected(src, 'Try to get all resources without perms, Hacker.')
+        HackerDetected(src, GetPlayerName(src)..' tried to get all resources without perms.')
     end
 end
 
@@ -45,12 +47,13 @@ function SendRodaLog(title, color, message)
             ["description"] = message,
         }
     }
-    PerformHttpRequest(webHook, function(err, text, headers) end, 'POST', json.encode({ username = ConfigSv.NameWebhook,embeds = embedData}), { ['Content-Type'] = 'application/json' })
+    PerformHttpRequest(webHook, function(err, text, headers) end, 'POST', json.encode({ username = ConfigSv.NameWebhook, avatar_url = ConfigSv.WebhookPicture, embeds = embedData}), { ['Content-Type'] = 'application/json' })
 end
 
 function messageIdentifiers(src, reason)
     local ids = ExtractIdentifiers(src)
     local message = '**Steam:** \n ``` '..ids.steam..' ``` \n **License:** \n ``` '..ids.license..' ``` \n **Discord: ** \n\n <@'..ids.discord:gsub("discord:", "")..'> \n\n **IP: **  \n ``` '..ids.ip..' ``` \n\n **Reason: ** \n\n '..reason..''
+    
     return message
 end
 
@@ -68,7 +71,6 @@ function ExtractIdentifiers(src)
     for i = 0, GetNumPlayerIdentifiers(src) - 1 do
         local id = GetPlayerIdentifier(src, i)
 
-        
         if string.find(id, "steam") then
             identifiers.steam = id
         elseif string.find(id, "ip") then
@@ -87,41 +89,28 @@ function ExtractIdentifiers(src)
     return identifiers
 end
 
-
-function GetIdentifier(src, tipo)
+function GetIdentifiers(src)
 	local src = src 
-	local license
-	if tipo == 'steam' then 
-		for k,v in ipairs(GetPlayerIdentifiers(src)) do
-			if string.match(v, 'steam') then
-				license = v
-				return license
-			end
-		end
-	elseif tipo == 'license' then 
-		for k,v in ipairs(GetPlayerIdentifiers(src)) do
-			if string.match(v, 'license') then
-				license = v
-				return license
-			end
-		end
-	elseif tipo == 'discord' then 
-		for k,v in ipairs(GetPlayerIdentifiers(src)) do
-			if string.match(v, 'discord') then
-				license = v
-				return license
-			end
-		end
-	end
+	local identifiers = {}
+
+    for k,v in ipairs(GetPlayerIdentifiers(src)) do
+        table.insert(identifiers, v)
+    end
+    
+    return identifiers
 end
 
 function CheckIsAdmin(src)
-    local iden = GetIdentifier(src, Config.Identifier)
-    for k,v in pairs(Config.Admins) do 
-        if v == iden then 
-            return true
+    local identifiers = GetIdentifier(src)
+
+    for k, v in pairs(Config.Admins) do 
+        for _, ident in pairs(identifiers) do
+            if v == ident then 
+                return true
+            end
         end
     end
+    
     return false
 end
 

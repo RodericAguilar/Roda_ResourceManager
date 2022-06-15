@@ -17,4 +17,4 @@ ConfigSv.Colors = {
 
 ConfigSv.NameWebhook = 'Roda ResourceManager'
 
-ConfigSv.PictureWebhook = 'https://cdn.discordapp.com/attachments/923242065033306133/949712623442747462/rodalogo.png'
+ConfigSv.WebhookPicture = 'https://cdn.discordapp.com/attachments/923242065033306133/949712623442747462/rodalogo.png'

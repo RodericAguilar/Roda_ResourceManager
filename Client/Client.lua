@@ -32,7 +32,6 @@ end)
 RegisterNetEvent('Roda_ResourceManager:OpenEdit')
 AddEventHandler('Roda_ResourceManager:OpenEdit', function (resource)
     for k,v in pairs(resource) do 
-
         SendNUIMessage({
             action = 'LoadFiles',
             resource = v,

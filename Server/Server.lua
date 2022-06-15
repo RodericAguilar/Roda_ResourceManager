@@ -1,15 +1,13 @@
 RegisterCommand('rm', function(source)
     local src = source
     local access = CheckIsAdmin(src)
+
     if access then 
         local resources = GetAllResources(src)
         TriggerClientEvent('Roda_ResourceManager:OpenUi', src, resources)
     end
-
 end)
 
-
-directorio = nil 
 RegisterServerEvent('Roda_ResourceManager:EditResource')
 AddEventHandler('Roda_ResourceManager:EditResource', function (resource)
     local src = source
@@ -17,17 +15,13 @@ AddEventHandler('Roda_ResourceManager:EditResource', function (resource)
     if access then 
         local resource1 = LoadResourceFile(resource, "__resource.lua")
         local resource2 = LoadResourceFile(resource, "fxmanifest.lua")
-        if resource1 then
-            local recurso = scandir(GetResourcePath(resource))
-            directorio = GetResourcePath(resource)
-            TriggerClientEvent('Roda_ResourceManager:OpenEdit', src, recurso)
-        elseif resource2 then
+        if resource1 or resource2 then
             local recurso = scandir(GetResourcePath(resource))
             directorio = GetResourcePath(resource)
             TriggerClientEvent('Roda_ResourceManager:OpenEdit', src, recurso)
         end
     else
-        HackerDetected(src, 'Try to edit resources without permission')
+        HackerDetected(src, GetPlayerName(src)..' tried to edit resources without permission.')
     end
 end)
 
@@ -62,7 +56,8 @@ AddEventHandler('Roda_ResourceManager:GetData', function (resource, ruta)
         local loadedResource = LoadResourceFile(resource, ruta)
         if loadedResource then
             TriggerClientEvent('Roda_ResourceManager:SendData', src, resource, ruta, loadedResource)
-            if Config.MakeBackup then 
+            if Config.MakeBackup then
+
                 if string.find(ruta, '.lua') then 
                     extension = '.lua'
                 elseif string.find(ruta, '.js') then
@@ -75,7 +70,7 @@ AddEventHandler('Roda_ResourceManager:GetData', function (resource, ruta)
             
                 if Config.SendFileToDiscord then 
                     SendRodaLog('Save Backup in Discord', 'red', 'The resource **'..resource..'** make a backup for **'..resource..''..ruta..'** ')
-                    exports['Roda_ResourceManager']:sendData(directorio..ruta, ConfigSv.Webhook)
+                    exports['Roda_ResourceManager']:sendData(GetResourcePath(resource)..ruta, ConfigSv.Webhook)
                 else
                     SendRodaLog('Save Backup in Folder', 'red', 'The resource **'..resource..'** make a backup for **'..resource..''..ruta..'** ')
                    -- Thanks to guillerp! for this code.
@@ -93,6 +88,7 @@ RegisterServerEvent('Roda_ResourceManager:SendBackupUrl')
 AddEventHandler('Roda_ResourceManager:SendBackupUrl', function (url)
     local src = source
     local access = CheckIsAdmin(src)
+
     if access then 
         SendRodaLog('File url', 'red', url)
     else
@@ -104,13 +100,14 @@ RegisterServerEvent('Roda_ResourceManager:Save')
 AddEventHandler('Roda_ResourceManager:Save', function (resource, ruta, data)
     local src = source
     local access = CheckIsAdmin(src)
-    if access then 
-            SaveResourceFile(resource, ruta, data, -1)
-            if Config.AutoRestart then 
-                StopResource(resource)
-                StartResource(resource)
-            end
-            SendRodaLog('Save and Edit File', 'green', 'The admin '..GetPlayerName(src)..' · '..src..' edited the file **'..resource..''..ruta..'** ')
+
+    if access then
+        SaveResourceFile(resource, ruta, data, -1)
+        if Config.AutoRestart then 
+            StopResource(resource)
+            StartResource(resource)
+        end
+        SendRodaLog('Save and Edit File', 'green', 'The admin '..GetPlayerName(src)..' · '..src..' edited the file **'..resource..''..ruta..'** ')
     else
         HackerDetected(src, 'Try to save data without permission')
     end
