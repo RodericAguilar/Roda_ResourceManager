@@ -9,6 +9,6 @@ Config.Admins = {
 
 Config.MakeBackup = true -- If true, the script will make a backup of the file before editing.
 
-Config.AutoRestart = true -- If true, the script will restarted after save the file.
+Config.AutoRestart = true -- If true, the script will restarted after saving the file.
 
 Config.SendFileToDiscord = false -- If true, the script will send a copy of the file to Discord, otherwise it will just save a copy on the script folder and upload it to dpaste.com
